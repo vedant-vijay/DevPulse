@@ -16,11 +16,11 @@ pgm.createTable('refresh_tokens', {
         notNull:true,
         unique:true
     },
-    expires_At:{
+    expires_at:{
         type:"timestampTZ",
         notNull:true,
     },
-    created_At: {
+    created_at: {
       type: 'timestampTZ',
       notNull: true,
       default: pgm.func('current_timestamp'),

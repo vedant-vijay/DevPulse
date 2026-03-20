@@ -18,7 +18,7 @@ export const up = (pgm) => {
         type : 'varchar(256)', 
         notNull:true, default:'viewer'
     },
-    created_At: {
+    created_at: {
       type: 'timestampTZ',
       notNull: true,
       default: pgm.func('current_timestamp'),

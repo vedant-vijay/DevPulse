@@ -12,6 +12,7 @@ export const registerController = async(req, res)=>{
          return res.status(201).json({message : "user is created", user:newUser})
     }
     catch(err){
+        console.log(err)
         return res.status(400).json({ message : "something went wrong"})
     }
 }
