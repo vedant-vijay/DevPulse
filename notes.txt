@@ -1,18 +1,1 @@
-******
-routes imports → controller and middleware
-controller imports → service
-service imports → repository
-repository imports → only the db pool
-middleware imports → only jsonwebtoken
-
-******
-repository → service → middleware → controller → routes
-
-******
-Logic is simple:
-
-Repository has no dependencies — build first
-Service depends on repository — build second
-Middleware only needs jsonwebtoken — build third
-Controller depends on service — build fourth
-Routes depends on controller and middleware — build last
+1. Controller imports Service. Service imports Repository. Repository imports the db pool. That's it.
