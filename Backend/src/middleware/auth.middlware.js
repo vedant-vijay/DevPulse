@@ -16,6 +16,6 @@ export const authMiddleware = (req, res, next)=>{
         next()
     }
     catch(err){
-        res.status(401).json({ message: 'Unauthorized' })
+        return res.status(401).json({ message: 'Unauthorized' })
     }
 }
