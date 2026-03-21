@@ -18,3 +18,10 @@ Service depends on repository — build second
 Middleware only needs jsonwebtoken — build third
 Controller depends on service — build fourth
 Routes depends on controller and middleware — build last
+
+******
+
+Flow becomes by adding the cache layer:
+
+controller → service → checks cache (utils) → repository (if cache miss)
+
