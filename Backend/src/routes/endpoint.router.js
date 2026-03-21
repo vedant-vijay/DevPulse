@@ -4,12 +4,12 @@ import express from "express"
 import { authMiddleware } from "../middleware/auth.middlware.js"
 
 const endpointRouter = express.Router()
-router.use(authMiddleware)
+endpointRouter.use(authMiddleware)
 
-router.post('/', createEndpointController)
-router.get('/', getEndpointsByOrgController)
-router.get('/:id', getEndpointByIdController)
-router.put('/:id', updateEndpointController)
-router.delete('/:id', deleteEndpointController)
+endpointRouter.post('/', createEndpointController)
+endpointRouter.get('/', getEndpointsByOrgController)
+endpointRouter.get('/:id', getEndpointByIdController)
+endpointRouter.put('/:id', updateEndpointController)
+endpointRouter.delete('/:id', deleteEndpointController)
 
 export default endpointRouter

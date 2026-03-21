@@ -4,13 +4,13 @@ import {authMiddleware} from "../middleware/auth.middlware.js"
 
 const authRouter = express.Router()
 
-router.post('/signup', registerController)
+authRouter.post('/signup', registerController)
 
-router.post('/login', loginController)
+authRouter.post('/login', loginController)
 
-router.post('/refresh', refreshController)
+authRouter.post('/refresh', refreshController)
 
-router.post('/logout',authMiddleware, logoutController)
+authRouter.post('/logout',authMiddleware, logoutController)
 
 
 export default authRouter
