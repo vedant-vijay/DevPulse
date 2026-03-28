@@ -1,4 +1,5 @@
 import {createEndpointService, getEndpointByIdService, getEndpointsByOrgService, updateEndpointService, deleteEndpointService} from "../services/endpoints.service.js"
+import {getOrgByUserIdService} from "../services/organisation.service.js"
 
 export const createEndpointController = async (req, res) => {
     const {orgId, url, method, expectedStatus, checkInterval} = req.body
@@ -6,7 +7,7 @@ export const createEndpointController = async (req, res) => {
         return res.status(400).json({message:"please fill the empty field"})
     }
     try{
-        const endpoint = await createEndpointService(orgId, url, method, expectedStatus, checkInterval)
+        await createEndpointService(orgId, url, method, expectedStatus, checkInterval)
         return res.status(200).json({message:"new endpoint is created"})
     }
     catch(err){
@@ -27,9 +28,10 @@ export const getEndpointByIdController = async (req, res) =>{
 }
 
 export const getEndpointsByOrgController = async(req, res) =>{
-    const {orgId} = req.user  
+    const {userId} = req.user
+    const orgId = await getOrgByUserIdService(userId)
     try{
-        const getEndpoint = await getEndpointsByOrgService(orgId)
+        const getEndpoint = await getEndpointsByOrgService(orgId.id)
         return res.status(200).json({message:"endpoint is fetched", endpoint : getEndpoint})
     }
     catch(err){
