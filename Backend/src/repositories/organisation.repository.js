@@ -14,6 +14,12 @@ export async function getOrgById(id){
     return res.rows[0]
 }
 
+export async function getRole(user_id, org_id){
+    const query = "select role from organization_members where user_id = $1 and org_id = $2"
+    const res = await pool.query(query, [user_id, org_id])
+    return res.rows[0]
+}
+
 export async function createOrg(name, ownerId){
     const client = await pool.connect()
     try{
@@ -38,10 +44,7 @@ export async function createOrg(name, ownerId){
     finally{
 
         await client.release()
-    }
-
-    
-    
+    }  
 }
 
 export async function updateOrg(id, name){
