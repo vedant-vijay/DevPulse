@@ -8,6 +8,12 @@ export async function createEndpoint(orgId, url, method, expectedStatus, checkIn
 
 }
 
+export async function getAllEndpoints(){
+    const query = " select * from endpoints"
+    const res = await pool.query(query)
+    return res.rows
+}
+
 export async function getEndpointsByOrg(orgId){
     const query = 'select * from endpoints where org_id = $1'
     const res = await pool.query(query, [orgId])

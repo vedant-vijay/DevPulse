@@ -2,6 +2,7 @@ import 'dotenv/config';
 import app from "./src/app.js"
 import pool from "./src/db/pool.js"
 import redis from "./src/db/redis.js"
+import {startPingService} from "./src/services/pingEndpoint.service.js"
 
 const port = process.env.PORT || 3000
 
@@ -9,6 +10,8 @@ try
 {
     const res = await pool.query('SELECT NOW()');
     console.log(res.rows[0])
+
+    startPingService()
 
     app.listen(port, ()=>{
     console.log(`listening on port ${port}`)})
