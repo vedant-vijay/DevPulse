@@ -1,66 +1,65 @@
 
 import {getOrgByIdService, getOrgByUserIdService, createOrgService, updateOrgService, deleteOrgService} from '../services/organisation.service.js'
 
-export const createOrgController = async (req, res) =>{
+export const createOrgController = async (req, res, next) =>{
     const { userId } = req.user
     const { name } = req.body
     if(!(name && userId)){
-        return res.status(400).json({message : "please set the empy fields"})
+        const error = new Error('Name and user are required')
+        error.statusCode = 400
+        return next(error)
     }
-
     try{
         await createOrgService(name, userId)
         return res.status(200).json({message:"new organization is created successfully"})
-    }catch(err){
-        return res.status(400).json({message:"falied to create the organisation"})
+    }catch(err) {
+        next(err)
     }
 }
 
-export const getOrgByIdController = async (req, res)=>{
+export const getOrgByIdController = async (req, res, next)=>{
     const {id} = req.params
     try{
         const getOrgById = await getOrgByIdService(id)
         return res.status(200).json({message:"organisation is fetched", organization : getOrgById})
-    }catch(err){
-        console.log(err)
-        return res.status(400).json({error: err})
+    }catch(err) {
+        next(err)
     }
-
 }
 
-export const getOrgByUserIdController = async (req, res)=>{
+export const getOrgByUserIdController = async (req, res, next)=>{
     const {userId} = req.user
     try{
         const getOrgByUserId = await getOrgByUserIdService(userId)
         return res.status(200).json({message:"organisation is fetched", organization : getOrgByUserId})
-    }catch(err){
-        console.log(err)
-        return res.status(400).json({error: err})
-    }  
+    }catch(err) {
+        next(err)
+    }
 }
 
-export const updateOrgController = async (req, res) => {
+export const updateOrgController = async (req, res, next) => {
     const {id} = req.params
     const {name} = req.body
     if(!(name)){
-        return res.status(400).json({message : "please set the empy fields"})
+        const error = new Error('Name is required')
+        error.statusCode = 400
+        return next(error)
     }
-
     try{
         const data = await updateOrgService(id, name)
         return res.status(200).json({message:"organisation is successful updated", data : data})
 
-    }catch(err){
-        return res.status(400).json({err : err})
+    }catch(err) {
+        next(err)
     }
 }
 
-export const deleteOrgController = async(req, res) =>{
+export const deleteOrgController = async(req, res, next) =>{
     const {id} = req.params
     try{
         const deleteOrg = await deleteOrgService(id)
         return res.status(200).json({message:"organistation deleted successfully", organization: deleteOrg})
-    }catch(err){
-        return res.status(400).json({error: err})
+    }catch(err) {
+        next(err)
     }
 }

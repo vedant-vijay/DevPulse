@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import authRouter from "./routes/auth.router.js"
 import endpointRouter from "./routes/endpoint.router.js"
 import orgRouter from "./routes/organization.router.js";
+import { errorHandler } from "./middleware/error.middleware.js";
 
 const app = express();
 app.use(cookieParser())
@@ -18,5 +19,7 @@ app.use('/api/v1/organisations', orgRouter)
 app.get("/health", (req, res)=>{
     res.json({status:"ok"})
 })
+
+app.use(errorHandler)
 
 export default app;
