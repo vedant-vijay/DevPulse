@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken"
-
 const ACCsecret = process.env.JWT_SECRET_ACCESS
 
 export const authMiddleware = (req, res, next)=>{
