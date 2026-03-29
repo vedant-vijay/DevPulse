@@ -2,6 +2,7 @@ import cron from "node-cron"
 import {getAllEndpoints} from "../repositories/endpoints.repository.js"
 import { savePingResult } from "../repositories/ping.repository.js"
 import { createIncident, getRecentFailures } from "../repositories/incident.repository.js"
+import { logger } from "../utils/logger.js";
 
 export async function startPingService() {
     cron.schedule('* * * * *',async () => {
@@ -16,16 +17,15 @@ export async function startPingService() {
                     const isSuccess = statusCode === endpoint.expected_status
                     await savePingResult(endpoint.id, statusCode, responseTime, isSuccess)
                     const recentFailures = await getRecentFailures(endpoint.id)
-                    console.log('failures count:', recentFailures.length, 'for endpoint:', endpoint.id)
+                    logger.info('failures count:', recentFailures.length, 'for endpoint:', endpoint.id)
 
                     if(recentFailures.length === 3){
-                        console.log('creating incident for:', endpoint.id)
+                        logger.info('creating incident for:', endpoint.id)
                         await createIncident(endpoint.id)
                     }
          
                 }catch(err){
-                    console.log(err)
-            
+                   logger.error(err)
             }
         });
 

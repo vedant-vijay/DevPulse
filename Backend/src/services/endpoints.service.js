@@ -21,7 +21,6 @@ export async function createEndpointService(orgId, url, method, expectedStatus, 
     const cashedKey = `endpoints:${orgId}`
     await deleteCache(cashedKey)
     return data
-
 }
 
 export async function getEndpointByIdService(id){

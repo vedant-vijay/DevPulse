@@ -1,8 +1,5 @@
-// getCache(key)
-// setCache(key, value, ttl)
-// deleteCache(key)
-
 import redis  from "../db/redis.js";
+import { logger } from "./logger.js";
 
 export async function getCache(key){
     try{
@@ -10,7 +7,7 @@ export async function getCache(key){
         return res
     }
     catch(err){
-        console.error('Cache get error:', err)
+        logger.error('Cache get error:', err)
         return null
     }
 }
@@ -22,7 +19,7 @@ export async function setCache(key, value, ttl){
         return res
     }
     catch(err){
-        console.error("cache st error:", err)
+        logger.error("cache st error:", err)
         return null
     }
 }
@@ -33,7 +30,7 @@ export async function deleteCache(key){
         return res
     }
     catch(err){
-        console.error("cache delete err:", err)
+        logger.error("cache delete err:", err)
         return null
     }
 
