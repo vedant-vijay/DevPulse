@@ -1,5 +1,6 @@
+import { logger } from "../utils/logger.js";
 export async function errorHandler(err, req, res, next) {
-  console.error(err.stack); 
+  logger.error(err.stack); 
   
   const statusCode = err.statusCode || 500; 
   res.status(statusCode);

@@ -1,4 +1,5 @@
 import pool from '../db/pool.js'
+import { logger } from '../utils/logger.js'
 
 export async function getOrgByUserId(userId){
     const query = "Select * from organization_members where user_id = $1"
@@ -36,13 +37,11 @@ export async function createOrg(name, ownerId){
 
         return res1.rows[0]
     }catch(err){
-
         await client.query("rollback")
-        console.log(err)
+        logger.error(err)
         throw err
     }
     finally{
-
         await client.release()
     }  
 }
@@ -57,6 +56,4 @@ export async function updateOrg(id, name){
 export async function deleteOrg(id){
     const query = "delete from organizations where id = $1"
     const res = await pool.query(query, [id])
-
-
 }

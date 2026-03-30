@@ -6,8 +6,14 @@ import endpointRouter from "./routes/endpoint.router.js"
 import orgRouter from "./routes/organization.router.js";
 import { errorHandler } from "./middleware/error.middleware.js";
 import { apiLimiter } from "./middleware/rateLimiter.middleware.js";
+import { logger } from "./utils/logger.js";
+import pinoHttp from "pino-http";
 
 const app = express();
+app.use(pinoHttp({
+    logger : logger
+}))
+
 app.use(cookieParser())
 
 app.use(express.json())

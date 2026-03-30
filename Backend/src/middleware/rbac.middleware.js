@@ -1,5 +1,5 @@
 import { getOrgByUserId, getRole } from "../repositories/organisation.repository.js"
-
+import { logger } from "../utils/logger.js"
 
 export function requireRole(allowedRoles) {
     return async (req, res, next) => {
@@ -19,7 +19,7 @@ export function requireRole(allowedRoles) {
                 res.status(403).json({message:'the user role is not authorized'})
             }
         }catch(err){
-            console.log(err)
+            logger.error(err)
             return res.status(500).json({ message: 'Internal server error' })
         }
     }
