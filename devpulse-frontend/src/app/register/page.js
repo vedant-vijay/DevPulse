@@ -1,16 +1,18 @@
 'use client'
 import { useState } from "react"
-import { useAuth } from "../context/AuthContext"
-import { useRouter } from "next/navigation"
 
-function Login(){
+function Register(){
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const { setAccessToken } = useAuth()
-    const router = useRouter()
+    const [confirmPassword, setConfirmPassword] = useState()
 
-    async function submitHandler(email, password){
-        const response = await fetch("http://localhost:3000/auth/v1/login", {
+    async function submitHandler(email, password, confirmPassword){
+        if(!(password === confirmPassword)){
+            alert("please add valid confirm password")
+            throw new Error("password does not match")
+            
+        }
+        const response = await fetch("http://localhost:3000/auth/v1/register", {
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json'
@@ -26,8 +28,6 @@ function Login(){
 
             const responseData = await response.json(); 
             console.log('Success:', responseData);
-            setAccessToken(responseData.token)
-            router.push('/dashboard')
             return responseData;
     }
 
@@ -45,7 +45,14 @@ function Login(){
                 placeholder="enter password here">
             </input>
 
-            <button onClick={()=>submitHandler(email, password)}>login</button>
+            <input
+                value ={confirmPassword}
+                onChange={(e)=>setConfirmPassword(e.target.value)}
+                placeholder="re-enter password here"
+
+            ></input>
+
+            <button onClick={()=>submitHandler(email, password, confirmPassword)}>Register</button>
         </form>
 
         
@@ -53,4 +60,4 @@ function Login(){
     )
 }
 
-export default Login
+export default Register
