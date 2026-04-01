@@ -2,9 +2,9 @@
 import { useState } from "react"
 
 function Register(){
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [confirmPassword, setConfirmPassword] = useState()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     async function submitHandler(email, password, confirmPassword){
         if(!(password === confirmPassword)){
@@ -12,7 +12,7 @@ function Register(){
             throw new Error("password does not match")
             
         }
-        const response = await fetch("http://localhost:3000/auth/v1/register", {
+        const response = await fetch("http://localhost:3000/auth/v1/signup", {
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json'
@@ -53,10 +53,7 @@ function Register(){
             ></input>
 
             <button onClick={()=>submitHandler(email, password, confirmPassword)}>Register</button>
-        </form>
-
-        
-        
+        </form>     
     )
 }
 

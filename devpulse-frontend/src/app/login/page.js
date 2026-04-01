@@ -4,8 +4,8 @@ import { useAuth } from "../context/AuthContext"
 import { useRouter } from "next/navigation"
 
 function Login(){
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const { setAccessToken } = useAuth()
     const router = useRouter()
 
@@ -45,7 +45,7 @@ function Login(){
                 placeholder="enter password here">
             </input>
 
-            <button onClick={()=>submitHandler(email, password)}>login</button>
+            <button type="button" onClick={()=>submitHandler(email, password)}>login</button>
         </form>
 
         
