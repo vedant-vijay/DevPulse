@@ -15,10 +15,14 @@ app.use(pinoHttp({
     logger : logger
 }))
 
+app.use(cors({
+    origin: 'http://localhost:3001',
+    credentials: true
+}))
+
 app.use(cookieParser())
 
 app.use(express.json())
-app.use(cors())
 
 app.use('/auth/v1', authRouter)
 
